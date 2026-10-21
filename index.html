@@ -24,6 +24,108 @@
             color: #f5f5f5;
         }
 
+
+        .project-window {
+            position: fixed;
+            top: 50%;
+            left: clamp(16px, 4vw, 56px);
+            width: 226px;
+            overflow: hidden;
+            border: 1px solid #2b2b2b;
+            border-radius: 14px;
+            background: #151515;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
+            text-align: left;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .window-bar {
+            display: flex;
+            align-items: center;
+            height: 36px;
+            padding: 0 13px;
+            border-bottom: 1px solid #292929;
+            background: #191919;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .window-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .window-dot.red {
+            background: #ff5f57;
+        }
+
+        .window-dot.yellow {
+            background: #febc2e;
+        }
+
+        .window-dot.green {
+            background: #28c840;
+        }
+
+        .window-title {
+            margin-left: auto;
+            margin-right: auto;
+            color: #777;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+        }
+
+        .project-link {
+            display: block;
+            min-height: 166px;
+            padding: 20px;
+            background: #000;
+            color: #f5f5f5;
+        }
+
+        .project-link:hover {
+            background: #080808;
+            opacity: 1;
+        }
+
+        .project-label {
+            display: block;
+            margin-bottom: 28px;
+            color: #666;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .project-name {
+            display: block;
+            max-width: 170px;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            color: #888;
+            font-size: 11px;
+        }
+
+        .project-arrow {
+            color: #f5f5f5;
+            font-size: 17px;
+            line-height: 1;
+        }
+
         main {
             width: 100%;
             max-width: 720px;
@@ -96,22 +198,63 @@
             font-size: 12px;
         }
 
-        .ending{
+        .ending {
             margin-top: 12px;
-           font-size: 1.2rem;
-  color: #07f227;
-  text-align: center;
-  text-shadow: 0 0 5px #07f227, 
-               0 0 10px #07f227, 
-               0 0 20px #07f227, 
-               0 0 40px #07f227, 
-               0 0 80px #07f227;
+            color: #07f227;
+            font-size: 1.2rem;
+            text-align: center;
+            text-shadow: 0 0 5px #07f227,
+                         0 0 10px #07f227,
+                         0 0 20px #07f227,
+                         0 0 40px #07f227,
+                         0 0 80px #07f227;
         }
 
+        @media (max-width: 860px) {
+            body {
+                flex-direction: column;
+                padding: 40px 24px;
+            }
+
+            .project-window {
+                position: static;
+                width: min(226px, 100%);
+                margin-top: 34px;
+                transform: none;
+                order: 2;
+            }
+
+            main {
+                order: 1;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <aside class="project-window" aria-label="Featured project">
+        <div class="window-bar" aria-hidden="true">
+            <div class="window-dots">
+                <span class="window-dot red"></span>
+                <span class="window-dot yellow"></span>
+                <span class="window-dot green"></span>
+            </div>
+            <span class="window-title">Projects</span>
+        </div>
+
+        <a class="project-link"
+           href="https://uniform-resource-optimizer-dashboar.vercel.app/"
+           target="_blank"
+           rel="noopener noreferrer">
+            <span class="project-label">Featured project</span>
+            <span class="project-name">Uniform Resource Optimizer</span>
+            <span class="project-meta">
+                <span>URO · View project</span>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+            </span>
+        </a>
+    </aside>
+
     <main>
         <div class="status">Portfolio under reconstruction</div>
 
