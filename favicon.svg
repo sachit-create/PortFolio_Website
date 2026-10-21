@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">SK favicon</title>
+  <desc id="desc">A black square with lime green SK initials.</desc>
+  <rect width="64" height="64" rx="15" fill="#050505"/>
+  <rect x="2" y="2" width="60" height="60" rx="13" fill="none" stroke="#c7ff3d" stroke-width="2"/>
+  <text x="32" y="39" fill="#c7ff3d" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="800" letter-spacing="-2" text-anchor="middle">SK</text>
+</svg>
