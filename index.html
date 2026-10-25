@@ -188,13 +188,34 @@
         }
 
         .window-body {
+            position: relative;
             padding: 16px 16px 18px;
-            background: linear-gradient(180deg, #101010 0%, #171717 100%);
+            background: linear-gradient(180deg, rgba(16,16,16,0.75), rgba(23,23,23,0.9));
+            min-height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .uro-window .window-body {
+            background-image: linear-gradient(180deg, rgba(10,10,10,0.2), rgba(10,10,10,0.85)), url('uro-team.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .project-label,
+        .project-name,
+        .project-desc,
+        .project-links {
+            position: relative;
+            z-index: 1;
         }
 
         .project-label {
             display: block;
-            color: #878787;
+            color: #f0f0f0;
             font-size: 10px;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -208,10 +229,11 @@
             letter-spacing: -0.04em;
             line-height: 1.15;
             margin-bottom: 10px;
+            color: #fff;
         }
 
         .project-desc {
-            color: var(--muted);
+            color: rgba(255,255,255,0.9);
             font-size: 13px;
             line-height: 1.6;
             margin-bottom: 18px;
@@ -226,10 +248,11 @@
         .mini-link {
             padding: 8px 10px;
             border-radius: 8px;
-            border: 1px solid var(--line);
+            border: 1px solid rgba(255,255,255,0.2);
             font-size: 12px;
             color: var(--text);
-            background: rgba(255,255,255,0.02);
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(3px);
         }
 
         .mini-link.primary {
@@ -364,7 +387,7 @@
                 </div>
             </article>
 
-            <article class="window" aria-label="URO project">
+            <article class="window uro-window" aria-label="URO project">
                 <div class="window-bar">
                     <div class="window-dots">
                         <span class="window-dot red"></span>
@@ -375,9 +398,9 @@
                     <div class="window-controls">— ×</div>
                 </div>
                 <div class="window-body">
-                    <span class="project-label">Project</span>
+                    <span class="project-label">College Hackathon Project</span>
                     <span class="project-name">Uniform Resource Optimizer</span>
-                    <p class="project-desc">A resource optimization system with a dashboard and neural/agent-based logic to improve allocation and planning workflows.</p>
+                    <p class="project-desc">A resource optimization system built for the TechSpark college hackathon using AI-assisted planning and smart allocation.</p>
                     <div class="project-links">
                         <a class="mini-link primary" href="https://uniform-resource-optimizer-neural.onrender.com" target="_blank" rel="noopener noreferrer">Live View</a>
                         <a class="mini-link" href="https://github.com/sachit-create/Resource-Optimization-System-Neural" target="_blank" rel="noopener noreferrer">Source Code</a>
