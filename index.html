@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system" data-color-scheme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,174 +7,123 @@
     <meta name="description" content="Sachit Kohli — computer science student and backend developer. Explore projects, experience, and resume.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>Sachit Kohli | Portfolio Dashboard</title>
+    <script>
+        (() => {
+            let preference = 'system';
+            try {
+                const saved = localStorage.getItem('sachit-portfolio-theme');
+                if (['light', 'dark', 'system'].includes(saved)) preference = saved;
+            } catch (_) {}
+            const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.dataset.theme = preference;
+            document.documentElement.dataset.colorScheme = preference === 'system' ? (dark ? 'dark' : 'light') : preference;
+        })();
+    </script>
     <style>
         :root {
             color-scheme: light;
-            --page: #f8fafd;
-            --white: #fff;
-            --ink: #202124;
-            --muted: #5f6368;
-            --line: #e4e7eb;
-            --blue: #0b57d0;
-            --blue-soft: #e8f0fe;
-            --green: #188038;
-            --shadow: 0 1px 2px rgba(60, 64, 67, .12), 0 1px 3px 1px rgba(60, 64, 67, .08);
+            --page: #f8fafd; --surface: #fff; --ink: #202124; --muted: #5f6368;
+            --line: #e4e7eb; --blue: #0b57d0; --blue-soft: #e8f0fe; --green: #188038;
+            --grid: rgba(218, 220, 224, .32); --control: #3c4043; --hover: #f1f3f4;
+            --hover-border: #bdc1c6; --soft: #f8fafd; --soft-border: #dadce0;
+            --badge: #f1f3f4; --badge-text: #5f6368; --row-line: #f0f1f2;
+            --shadow: 0 1px 2px rgba(60,64,67,.12), 0 1px 3px 1px rgba(60,64,67,.08);
         }
-
+        :root[data-color-scheme="dark"] {
+            color-scheme: dark;
+            --page: #202124; --surface: #292a2d; --ink: #e8eaed; --muted: #bdc1c6;
+            --line: #45474b; --blue: #a8c7fa; --blue-soft: #394b67; --green: #81c995;
+            --grid: rgba(255,255,255,.055); --control: #e8eaed; --hover: #35363a;
+            --hover-border: #5f6368; --soft: #303134; --soft-border: #5f6368;
+            --badge: #3c4043; --badge-text: #dadce0; --row-line: #3c4043;
+            --shadow: 0 1px 3px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.2);
+        }
         * { box-sizing: border-box; }
         html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
-        body {
-            color: var(--ink);
-            background: var(--page);
-            font-family: "Google Sans", "Segoe UI", Roboto, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-        button, a { font: inherit; }
+        body { color: var(--ink); background: var(--page); font-family: "Google Sans", "Segoe UI", Roboto, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+        button, a, select { font: inherit; }
         button { color: inherit; }
         a { color: inherit; text-decoration: none; }
-        button:focus-visible, a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-
+        button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
         .app { display: flex; flex-direction: column; width: 100%; height: 100vh; height: 100dvh; }
-        .topbar {
-            position: relative;
-            z-index: 5;
-            height: 64px;
-            min-height: 64px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 0 20px 0 16px;
-            background: var(--page);
-        }
-        .icon-button {
-            width: 44px;
-            height: 44px;
-            display: inline-grid;
-            place-items: center;
-            flex: 0 0 auto;
-            border: 0;
-            border-radius: 50%;
-            background: transparent;
-            color: #444746;
-            cursor: pointer;
-        }
-        .icon-button:hover { background: #e9edf3; }
+        .topbar { position: relative; z-index: 5; height: 64px; min-height: 64px; display: flex; align-items: center; gap: 14px; padding: 0 20px 0 16px; background: var(--page); }
+        .icon-button { width: 44px; height: 44px; display: inline-grid; place-items: center; flex: 0 0 auto; border: 0; border-radius: 50%; background: transparent; color: var(--control); cursor: pointer; }
+        .icon-button:hover { background: var(--hover); }
         .hamburger { width: 20px; display: grid; gap: 5px; }
         .hamburger i { display: block; height: 2px; border-radius: 2px; background: currentColor; }
         .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
-        .brand-mark {
-            width: 34px; height: 34px; display: grid; place-items: center;
-            border-radius: 10px; background: var(--blue-soft); color: var(--blue);
-            font-size: 15px; font-weight: 700;
-        }
+        .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: var(--blue-soft); color: var(--blue); font-size: 15px; font-weight: 700; }
         .brand-copy { min-width: 0; }
         .brand-name { font-size: 17px; font-weight: 500; letter-spacing: -.3px; white-space: nowrap; }
         .brand-subtitle { margin-top: 2px; color: var(--muted); font-size: 11px; }
         .topbar-spacer { flex: 1; }
-        .availability {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px;
-            background: var(--white); color: #3c4043; font-size: 12px; white-space: nowrap;
-        }
+        .availability { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--control); font-size: 12px; white-space: nowrap; }
         .availability::before { width: 8px; height: 8px; border-radius: 50%; background: #34a853; content: ""; }
-        .avatar {
-            width: 36px; height: 36px; display: grid; place-items: center; flex: 0 0 auto;
-            border: 0; border-radius: 50%; background: #d3e3fd; color: #174ea6;
-            font-size: 13px; font-weight: 700;
-        }
-
+        .theme-control { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 12px; white-space: nowrap; }
+        .theme-select { min-height: 36px; padding: 0 28px 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); cursor: pointer; }
+        .avatar { width: 36px; height: 36px; display: grid; place-items: center; flex: 0 0 auto; border: 0; border-radius: 50%; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 700; }
         .workspace { position: relative; display: flex; flex: 1; min-height: 0; padding: 0 16px 16px; }
-        .sidebar {
-            position: absolute; z-index: 4; inset: 0 auto 16px 16px;
-            width: 256px; padding: 12px 10px;
-            border: 1px solid var(--line); border-radius: 18px;
-            background: var(--white); box-shadow: var(--shadow);
-            visibility: hidden; opacity: 0; transform: translateX(-12px);
-            transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
-        }
+        .sidebar { position: absolute; z-index: 4; inset: 0 auto 16px 16px; width: 256px; padding: 12px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); visibility: hidden; opacity: 0; transform: translateX(-12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
         .sidebar.open { visibility: visible; opacity: 1; transform: translateX(0); }
         .menu-label { padding: 9px 13px 10px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
         .nav-list { display: grid; gap: 4px; }
-        .nav-item {
-            min-height: 46px; width: 100%; display: flex; align-items: center; gap: 14px;
-            padding: 0 14px; border: 0; border-radius: 999px; background: transparent;
-            color: #3c4043; text-align: left; cursor: pointer;
-        }
-        .nav-item:hover { background: #f1f3f4; }
-        .nav-item[aria-current="page"] { background: var(--blue-soft); color: #174ea6; font-weight: 600; }
+        .nav-item { min-height: 46px; width: 100%; display: flex; align-items: center; gap: 14px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--control); text-align: left; cursor: pointer; }
+        .nav-item:hover { background: var(--hover); }
+        .nav-item[aria-current="page"] { background: var(--blue-soft); color: var(--blue); font-weight: 600; }
         .nav-icon { width: 19px; text-align: center; font-size: 17px; }
         .nav-divider { height: 1px; margin: 12px 10px; background: var(--line); }
         .sidebar-note { padding: 7px 14px; color: var(--muted); font-size: 12px; line-height: 1.6; }
-        .menu-scrim { position: absolute; z-index: 3; inset: 0; display: none; background: rgba(32, 33, 36, .12); }
+        .menu-scrim { position: absolute; z-index: 3; inset: 0; display: none; background: rgba(32,33,36,.12); }
         .menu-scrim.visible { display: block; }
-
-        .main-panel {
-            position: relative; width: 100%; height: 100%; min-width: 0; overflow: hidden;
-            border: 1px solid var(--line); border-radius: 18px;
-            background-color: var(--white);
-            background-image: linear-gradient(to right, rgba(218, 220, 224, .32) 1px, transparent 1px), linear-gradient(to bottom, rgba(218, 220, 224, .32) 1px, transparent 1px);
-            background-size: 28px 28px;
-        }
-        .panel-top {
-            height: 52px; display: flex; align-items: center; gap: 12px;
-            padding: 0 22px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.94);
-        }
+        .main-panel { position: relative; width: 100%; height: 100%; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background-color: var(--surface); background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px), linear-gradient(to bottom, var(--grid) 1px, transparent 1px); background-size: 28px 28px; }
+        .panel-top { height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 22px; border-bottom: 1px solid var(--line); background: var(--surface); }
         .panel-title { font-size: 14px; font-weight: 600; }
-        .breadcrumb { color: #9aa0a6; font-size: 12px; }
-        .panel-content {
-            width: min(100%, 1120px); height: calc(100% - 52px); margin: 0 auto;
-            padding: clamp(20px, 4vh, 38px) clamp(18px, 4vw, 48px);
-            overflow: hidden;
-        }
+        .breadcrumb { color: var(--muted); font-size: 12px; }
+        .panel-content { width: min(100%,1120px); height: calc(100% - 52px); margin: 0 auto; padding: clamp(20px,4vh,38px) clamp(18px,4vw,48px); overflow: hidden; }
         .view { display: none; width: 100%; height: 100%; }
         .view.active { display: flex; flex-direction: column; }
-        .view-heading { margin: 0; font-size: clamp(23px, 3vw, 32px); font-weight: 500; letter-spacing: -.8px; }
+        .view-heading { margin: 0; font-size: clamp(23px,3vw,32px); font-weight: 500; letter-spacing: -.8px; }
         .view-description { max-width: 670px; margin: 9px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
-        .overview-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(220px, .75fr); gap: 18px; margin-top: 24px; min-height: 0; }
-        .sheet-card {
-            min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 16px;
-            background: rgba(255,255,255,.97); box-shadow: 0 1px 2px rgba(60,64,67,.08);
-        }
+        .overview-grid { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(220px,.75fr); gap: 18px; margin-top: 24px; min-height: 0; }
+        .sheet-card { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: 0 1px 2px rgba(60,64,67,.08); }
         .welcome-card { display: flex; flex-direction: column; justify-content: center; }
         .small-label { color: var(--blue); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-        .welcome-title { margin: 11px 0 8px; font-size: clamp(27px, 4vw, 42px); font-weight: 500; letter-spacing: -1.5px; }
+        .welcome-title { margin: 11px 0 8px; font-size: clamp(27px,4vw,42px); font-weight: 500; letter-spacing: -1.5px; }
         .welcome-copy { max-width: 570px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
         .quick-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-        .action {
-            min-height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 0 14px; border: 1px solid #dadce0; border-radius: 8px; background: var(--white);
-            color: #3c4043; font-size: 12px; font-weight: 600; cursor: pointer;
-        }
-        .action:hover { background: #f8fafd; border-color: #bdc1c6; }
-        .action.primary { border-color: var(--blue); background: var(--blue); color: white; }
-        .action.primary:hover { background: #174ea6; }
+        .action { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 14px; border: 1px solid var(--soft-border); border-radius: 8px; background: var(--surface); color: var(--control); font-size: 12px; font-weight: 600; cursor: pointer; }
+        .action:hover { background: var(--soft); border-color: var(--hover-border); }
+        .action.primary { border-color: #0b57d0; background: #0b57d0; color: #fff; }
+        .action.primary:hover { border-color: #174ea6; background: #174ea6; }
+        [data-color-scheme="dark"] .action.primary { border-color: #a8c7fa; background: #a8c7fa; color: #202124; }
+        [data-color-scheme="dark"] .action.primary:hover { border-color: #d3e3fd; background: #d3e3fd; }
         .profile-card { display: flex; flex-direction: column; justify-content: center; }
         .profile-initials { width: 48px; height: 48px; display: grid; place-items: center; margin-bottom: 14px; border-radius: 14px; background: var(--blue-soft); color: var(--blue); font-weight: 700; }
         .profile-name { margin: 0; font-size: 17px; font-weight: 600; }
         .profile-role { margin: 5px 0 16px; color: var(--muted); font-size: 12px; }
-        .profile-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #f0f1f2; font-size: 12px; }
+        .profile-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid var(--row-line); font-size: 12px; }
         .profile-row span:first-child { color: var(--muted); }
         .profile-row span:last-child { text-align: right; }
-        .section-kicker { margin: 24px 0 12px; color: #5f6368; font-size: 12px; font-weight: 600; }
-        .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
-        .project-card { display: flex; flex-direction: column; min-height: 0; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.98); }
+        .section-kicker { margin: 24px 0 12px; color: var(--muted); font-size: 12px; font-weight: 600; }
+        .project-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top: 18px; }
+        .project-card { display: flex; flex-direction: column; min-height: 0; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
         .project-card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .project-badge { padding: 6px 9px; border-radius: 999px; background: #f1f3f4; color: #5f6368; font-size: 10px; font-weight: 600; }
+        .project-badge { padding: 6px 9px; border-radius: 999px; background: var(--badge); color: var(--badge-text); font-size: 10px; font-weight: 600; }
         .project-card h3 { margin: 15px 0 7px; font-size: 17px; font-weight: 600; }
         .project-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
-        .project-tech { margin-top: 12px !important; color: #3c4043 !important; font-size: 11px !important; }
+        .project-tech { margin-top: 12px !important; color: var(--control) !important; font-size: 11px !important; }
         .project-links { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; padding-top: 16px; }
         .text-link { color: var(--blue); font-size: 11px; font-weight: 600; }
         .text-link:hover { text-decoration: underline; }
-        .experience-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin-top: 20px; }
-        .experience-card { padding: 17px 18px; border: 1px solid var(--line); border-radius: 13px; background: rgba(255,255,255,.98); }
+        .experience-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin-top: 20px; }
+        .experience-card { padding: 17px 18px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
         .experience-card h3 { margin: 0 0 7px; font-size: 15px; font-weight: 600; }
         .experience-meta { margin-bottom: 9px; color: var(--blue); font-size: 11px; font-weight: 600; }
         .experience-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
         .skill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-        .skill-chip { padding: 8px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); color: #3c4043; font-size: 11px; }
-        .resume-layout { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 16px; min-height: 0; flex: 1; margin-top: 16px; }
-        .resume-frame { width: 100%; height: 100%; min-height: 0; border: 1px solid var(--line); border-radius: 12px; background: #f1f3f4; }
+        .skill-chip { padding: 8px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--control); font-size: 11px; }
+        .resume-layout { display: grid; grid-template-columns: minmax(0,1fr) 220px; gap: 16px; min-height: 0; flex: 1; margin-top: 16px; }
+        .resume-frame { width: 100%; height: 100%; min-height: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--soft); }
         .resume-info { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
         .resume-info h3 { margin: 0 0 8px; font-size: 16px; }
         .resume-info p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
@@ -184,88 +133,77 @@
         .contact-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
         .status-line { display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 15px; color: var(--muted); font-size: 11px; }
         .status-line span { color: var(--green); }
-
-        @media (min-width: 900px) {
-            .sidebar.open ~ .main-panel { margin-left: 272px; width: calc(100% - 272px); }
+        @media (min-width:900px) { .sidebar.open ~ .main-panel { margin-left:272px; width:calc(100% - 272px); } }
+        @media (max-width:700px) {
+            .topbar { height:58px; min-height:58px; padding:0 10px; gap:8px; }
+            .brand-subtitle, .availability, .theme-label { display:none; }
+            .theme-select { min-height:34px; padding-left:8px; font-size:11px; }
+            .workspace { padding:0 8px 8px; }
+            .sidebar { inset:0 auto 8px 8px; width:min(290px,calc(100vw - 32px)); }
+            .main-panel { border-radius:14px; }
+            .panel-top { height:46px; padding:0 16px; }
+            .panel-content { height:calc(100% - 46px); padding:18px 14px; }
+            .overview-grid { grid-template-columns:1fr; gap:11px; margin-top:14px; }
+            .sheet-card { padding:16px; }
+            .profile-initials { display:none; }
+            .profile-role { margin-bottom:7px; }
+            .profile-row { padding:7px 0; }
+            .section-kicker { margin:14px 0 8px; }
+            .project-grid { gap:10px; margin-top:12px; }
+            .project-card { padding:13px; }
+            .project-card h3 { margin-top:11px; font-size:15px; }
+            .project-card p { font-size:11px; }
+            .project-links { padding-top:10px; }
+            .experience-grid { gap:10px; margin-top:14px; }
+            .experience-card { padding:13px; }
+            .resume-layout { grid-template-columns:minmax(0,1fr) 150px; gap:9px; }
+            .resume-info { padding:12px; }
         }
-        @media (max-width: 700px) {
-            .topbar { height: 58px; min-height: 58px; padding: 0 10px; gap: 8px; }
-            .brand-subtitle, .availability { display: none; }
-            .workspace { padding: 0 8px 8px; }
-            .sidebar { inset: 0 auto 8px 8px; width: min(290px, calc(100vw - 32px)); }
-            .main-panel { border-radius: 14px; }
-            .panel-top { height: 46px; padding: 0 16px; }
-            .panel-content { height: calc(100% - 46px); padding: 18px 14px; }
-            .overview-grid { grid-template-columns: 1fr; gap: 11px; margin-top: 14px; }
-            .sheet-card { padding: 16px; }
-            .profile-initials { display: none; }
-            .profile-role { margin-bottom: 7px; }
-            .profile-row { padding: 7px 0; }
-            .section-kicker { margin: 14px 0 8px; }
-            .project-grid { gap: 10px; margin-top: 12px; }
-            .project-card { padding: 13px; }
-            .project-card h3 { margin-top: 11px; font-size: 15px; }
-            .project-card p { font-size: 11px; }
-            .project-links { padding-top: 10px; }
-            .experience-grid { gap: 10px; margin-top: 14px; }
-            .experience-card { padding: 13px; }
-            .resume-layout { grid-template-columns: minmax(0,1fr) 150px; gap: 9px; }
-            .resume-info { padding: 12px; }
+        @media (max-width:430px) {
+            .brand-name { font-size:15px; }
+            .brand-mark { width:31px; height:31px; }
+            .welcome-card { padding:15px; }
+            .welcome-title { margin-top:8px; font-size:27px; }
+            .welcome-copy { font-size:12px; line-height:1.55; }
+            .quick-actions { gap:7px; margin-top:13px; }
+            .action { min-height:36px; padding:0 10px; font-size:11px; }
+            .profile-card { padding:12px 15px; }
+            .project-grid, .experience-grid { grid-template-columns:1fr; }
+            .project-card { padding:12px 14px; }
+            .project-card h3 { margin:8px 0 4px; font-size:14px; }
+            .project-card p, .experience-card p { line-height:1.45; }
+            .project-tech { display:none; }
+            .project-links { padding-top:8px; }
+            .experience-card { padding:11px 13px; }
+            .experience-card p { font-size:11px; }
+            .resume-layout { grid-template-columns:1fr; grid-template-rows:minmax(0,1fr) auto; }
+            .resume-info { flex-direction:row; align-items:center; justify-content:space-between; gap:10px; padding:10px; }
+            .resume-info p { display:none; }
+            .resume-info h3 { margin:0; font-size:13px; }
+            .resume-info .action { margin:0; }
         }
-        @media (max-width: 430px) {
-            .brand-name { font-size: 15px; }
-            .brand-mark { width: 31px; height: 31px; }
-            .overview-grid { grid-template-columns: 1fr; }
-            .welcome-card { padding: 15px; }
-            .welcome-title { margin-top: 8px; font-size: 27px; }
-            .welcome-copy { font-size: 12px; line-height: 1.55; }
-            .quick-actions { gap: 7px; margin-top: 13px; }
-            .action { min-height: 36px; padding: 0 10px; font-size: 11px; }
-            .profile-card { padding: 12px 15px; }
-            .project-grid { grid-template-columns: 1fr; }
-            .project-card { padding: 12px 14px; }
-            .project-card h3 { margin: 8px 0 4px; font-size: 14px; }
-            .project-card p { line-height: 1.45; }
-            .project-tech { display: none; }
-            .project-links { padding-top: 8px; }
-            .experience-grid { grid-template-columns: 1fr; }
-            .experience-card { padding: 11px 13px; }
-            .experience-card p { font-size: 11px; line-height: 1.45; }
-            .resume-layout { grid-template-columns: 1fr; grid-template-rows: minmax(0,1fr) auto; }
-            .resume-info { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; padding: 10px; }
-            .resume-info p { display: none; }
-            .resume-info h3 { margin: 0; font-size: 13px; }
-            .resume-info .action { margin: 0; }
+        @media (max-height:650px) and (min-width:701px) {
+            .panel-content { padding-top:18px; padding-bottom:14px; }
+            .overview-grid { margin-top:14px; }
+            .sheet-card { padding:17px; }
+            .welcome-title { font-size:32px; }
+            .section-kicker { margin-top:14px; }
+            .project-card { padding:14px; }
+            .experience-grid { margin-top:13px; }
         }
-        @media (max-height: 650px) and (min-width: 701px) {
-            .panel-content { padding-top: 18px; padding-bottom: 14px; }
-            .overview-grid { margin-top: 14px; }
-            .sheet-card { padding: 17px; }
-            .welcome-title { font-size: 32px; }
-            .section-kicker { margin-top: 14px; }
-            .project-card { padding: 14px; }
-            .experience-grid { margin-top: 13px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { transition-duration: .01ms !important; }
-        }
+        @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:.01ms !important; } }
     </style>
 </head>
 <body>
     <div class="app">
         <header class="topbar">
-            <button class="icon-button" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
-                <span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span>
-            </button>
-            <a class="brand" href="#home" aria-label="Sachit Kohli portfolio home">
-                <span class="brand-mark" aria-hidden="true">SK</span>
-                <span class="brand-copy"><span class="brand-name">Sachit Kohli</span><span class="brand-subtitle">Personal portfolio</span></span>
-            </a>
+            <button class="icon-button" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar"><span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span></button>
+            <a class="brand" href="#home" aria-label="Sachit Kohli portfolio home"><span class="brand-mark" aria-hidden="true">SK</span><span class="brand-copy"><span class="brand-name">Sachit Kohli</span><span class="brand-subtitle">Personal portfolio</span></span></a>
             <span class="topbar-spacer"></span>
             <span class="availability">Open to opportunities</span>
+            <label class="theme-control"><span class="theme-label">Theme</span><select class="theme-select" id="themeSelect" aria-label="Choose color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
             <span class="avatar" aria-label="Sachit Kohli">SK</span>
         </header>
-
         <div class="workspace">
             <div class="menu-scrim" id="menuScrim"></div>
             <nav class="sidebar" id="sidebar" aria-label="Portfolio sections">
@@ -277,114 +215,42 @@
                     <button class="nav-item" type="button" data-view="resume"><span class="nav-icon" aria-hidden="true">▧</span>Resume</button>
                     <button class="nav-item" type="button" data-view="about"><span class="nav-icon" aria-hidden="true">ⓘ</span>About & contact</button>
                 </div>
-                <div class="nav-divider"></div>
-                <p class="sidebar-note">Choose a section to explore Sachit’s work and background.</p>
+                <div class="nav-divider"></div><p class="sidebar-note">Choose a section to explore Sachit’s work and background.</p>
             </nav>
-
             <main class="main-panel" id="mainPanel">
                 <div class="panel-top"><span class="panel-title" id="panelTitle">Overview</span><span class="breadcrumb">Portfolio / <span id="breadcrumbTitle">Overview</span></span></div>
                 <div class="panel-content">
                     <section class="view active" id="view-home" aria-labelledby="home-title">
-                        <h1 class="view-heading" id="home-title">Portfolio dashboard</h1>
-                        <p class="view-description">A quick look at what I build, what I’m learning, and how to get in touch.</p>
+                        <h1 class="view-heading" id="home-title">Portfolio dashboard</h1><p class="view-description">A quick look at what I build, what I’m learning, and how to get in touch.</p>
                         <div class="overview-grid">
-                            <article class="sheet-card welcome-card">
-                                <span class="small-label">Computer science · Backend development</span>
-                                <h2 class="welcome-title">Hi, I’m Sachit.</h2>
-                                <p class="welcome-copy">I’m a computer science student who enjoys building practical web applications. I’m focused on learning by creating, improving, and shipping real projects.</p>
-                                <div class="quick-actions">
-                                    <button class="action primary" type="button" data-open-view="projects">Explore projects <span aria-hidden="true">→</span></button>
-                                    <button class="action" type="button" data-open-view="resume">View resume</button>
-                                </div>
-                            </article>
-                            <aside class="sheet-card profile-card" aria-label="Profile summary">
-                                <span class="profile-initials" aria-hidden="true">SK</span>
-                                <h2 class="profile-name">Sachit Kohli</h2>
-                                <p class="profile-role">CSE Student · Backend Developer</p>
-                                <div class="profile-row"><span>Focus</span><span>Web applications</span></div>
-                                <div class="profile-row"><span>Featured work</span><span>2 projects</span></div>
-                                <div class="profile-row"><span>Connect</span><span><a class="text-link" href="https://github.com/sachit-create" target="_blank" rel="noopener noreferrer">GitHub ↗</a></span></div>
-                            </aside>
-                        </div>
-                        <div class="status-line"><span aria-hidden="true">●</span> Building and learning through projects</div>
+                            <article class="sheet-card welcome-card"><span class="small-label">Computer science · Backend development</span><h2 class="welcome-title">Hi, I’m Sachit.</h2><p class="welcome-copy">I’m a computer science student who enjoys building practical web applications. I’m focused on learning by creating, improving, and shipping real projects.</p><div class="quick-actions"><button class="action primary" type="button" data-open-view="projects">Explore projects <span aria-hidden="true">→</span></button><button class="action" type="button" data-open-view="resume">View resume</button></div></article>
+                            <aside class="sheet-card profile-card" aria-label="Profile summary"><span class="profile-initials" aria-hidden="true">SK</span><h2 class="profile-name">Sachit Kohli</h2><p class="profile-role">CSE Student · Backend Developer</p><div class="profile-row"><span>Focus</span><span>Web applications</span></div><div class="profile-row"><span>Featured work</span><span>2 projects</span></div><div class="profile-row"><span>Connect</span><span><a class="text-link" href="https://github.com/sachit-create" target="_blank" rel="noopener noreferrer">GitHub ↗</a></span></div></aside>
+                        </div><div class="status-line"><span aria-hidden="true">●</span> Building and learning through projects</div>
                     </section>
-
                     <section class="view" id="view-projects" aria-labelledby="projects-title">
-                        <h1 class="view-heading" id="projects-title">Projects</h1>
-                        <p class="view-description">A selection of personal and hackathon work. Open a live project or browse its source.</p>
+                        <h1 class="view-heading" id="projects-title">Projects</h1><p class="view-description">A selection of personal and hackathon work. Open a live project or browse its source.</p>
                         <div class="project-grid">
-                            <article class="project-card">
-                                <div class="project-card-top"><span class="small-label">Personal project</span><span class="project-badge">Two versions</span></div>
-                                <h3>Finance Tracker</h3>
-                                <p>A budgeting app developed in two iterations: a frontend dashboard and a Python web application.</p>
-                                <p class="project-tech">Version 1 · Frontend dashboard<br>Version 2 · Flask · SQLite</p>
-                                <div class="project-links">
-                                    <a class="text-link" href="https://sachit-create.github.io/Finance-Tracker/" target="_blank" rel="noopener noreferrer">V1 live ↗</a>
-                                    <a class="text-link" href="https://github.com/sachit-create/Finance-Tracker" target="_blank" rel="noopener noreferrer">V1 source ↗</a>
-                                    <a class="text-link" href="https://financetracker-2-p268.onrender.com/login" target="_blank" rel="noopener noreferrer">V2 live ↗</a>
-                                    <a class="text-link" href="https://github.com/sachit-create/FinanceTracker_2" target="_blank" rel="noopener noreferrer">V2 source ↗</a>
-                                </div>
-                            </article>
-                            <article class="project-card">
-                                <div class="project-card-top"><span class="small-label">Hackathon project</span><span class="project-badge">TechSpark</span></div>
-                                <h3>Uniform Resource Optimizer</h3>
-                                <p>A resource optimization system for planning and smart allocation, developed for the TechSpark college hackathon.</p>
-                                <p class="project-tech">Focus · Resource planning and allocation</p>
-                                <div class="project-links">
-                                    <a class="text-link" href="https://uniform-resource-optimizer-dashboar.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
-                                    <a class="text-link" href="https://github.com/sachit-create/Resource-Optimization-System-Neural" target="_blank" rel="noopener noreferrer">Source code ↗</a>
-                                </div>
-                            </article>
+                            <article class="project-card"><div class="project-card-top"><span class="small-label">Personal project</span><span class="project-badge">Two versions</span></div><h3>Finance Tracker</h3><p>A budgeting app developed in two iterations: a frontend dashboard and a Python web application.</p><p class="project-tech">Version 1 · Frontend dashboard<br>Version 2 · Flask · SQLite</p><div class="project-links"><a class="text-link" href="https://sachit-create.github.io/Finance-Tracker/" target="_blank" rel="noopener noreferrer">V1 live ↗</a><a class="text-link" href="https://github.com/sachit-create/Finance-Tracker" target="_blank" rel="noopener noreferrer">V1 source ↗</a><a class="text-link" href="https://financetracker-2-p268.onrender.com/login" target="_blank" rel="noopener noreferrer">V2 live ↗</a><a class="text-link" href="https://github.com/sachit-create/FinanceTracker_2" target="_blank" rel="noopener noreferrer">V2 source ↗</a></div></article>
+                            <article class="project-card"><div class="project-card-top"><span class="small-label">Hackathon project</span><span class="project-badge">TechSpark</span></div><h3>Uniform Resource Optimizer</h3><p>A resource optimization system for planning and smart allocation, developed for the TechSpark college hackathon.</p><p class="project-tech">Focus · Resource planning and allocation</p><div class="project-links"><a class="text-link" href="https://uniform-resource-optimizer-dashboar.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo ↗</a><a class="text-link" href="https://github.com/sachit-create/Resource-Optimization-System-Neural" target="_blank" rel="noopener noreferrer">Source code ↗</a></div></article>
                         </div>
                     </section>
-
                     <section class="view" id="view-experience" aria-labelledby="experience-title">
-                        <h1 class="view-heading" id="experience-title">Experience & learning</h1>
-                        <p class="view-description">My current experience is centered on computer science studies and building projects. I’ve kept this section to verifiable work rather than inventing job history.</p>
-                        <div class="experience-grid">
-                            <article class="experience-card"><div class="experience-meta">Education</div><h3>Computer Science student</h3><p>Studying computer science while developing practical skills through independent web application projects.</p></article>
-                            <article class="experience-card"><div class="experience-meta">Project work</div><h3>Finance Tracker</h3><p>Built two versions of a budgeting application, including a Python, Flask, and SQLite web app.</p></article>
-                            <article class="experience-card"><div class="experience-meta">Hackathon</div><h3>TechSpark · Uniform Resource Optimizer</h3><p>Worked on a resource optimization system for planning and smart allocation as a college hackathon project.</p></article>
-                            <article class="experience-card"><div class="experience-meta">Development approach</div><h3>Learn by building</h3><p>Practicing by taking projects from an idea to a working application and iterating on the implementation.</p></article>
-                        </div>
-                        <h2 class="section-kicker">Tools and technologies reflected in my projects</h2>
-                        <div class="skill-row" aria-label="Technologies"><span class="skill-chip">Python</span><span class="skill-chip">Flask</span><span class="skill-chip">SQLite</span><span class="skill-chip">Frontend development</span><span class="skill-chip">Web applications</span></div>
+                        <h1 class="view-heading" id="experience-title">Experience & learning</h1><p class="view-description">My current experience is centered on computer science studies and building projects. I’ve kept this section to verifiable work rather than inventing job history.</p>
+                        <div class="experience-grid"><article class="experience-card"><div class="experience-meta">Education</div><h3>Computer Science student</h3><p>Studying computer science while developing practical skills through independent web application projects.</p></article><article class="experience-card"><div class="experience-meta">Project work</div><h3>Finance Tracker</h3><p>Built two versions of a budgeting application, including a Python, Flask, and SQLite web app.</p></article><article class="experience-card"><div class="experience-meta">Hackathon</div><h3>TechSpark · Uniform Resource Optimizer</h3><p>Worked on a resource optimization system for planning and smart allocation as a college hackathon project.</p></article><article class="experience-card"><div class="experience-meta">Development approach</div><h3>Learn by building</h3><p>Practicing by taking projects from an idea to a working application and iterating on the implementation.</p></article></div>
+                        <h2 class="section-kicker">Tools and technologies reflected in my projects</h2><div class="skill-row" aria-label="Technologies"><span class="skill-chip">Python</span><span class="skill-chip">Flask</span><span class="skill-chip">SQLite</span><span class="skill-chip">Frontend development</span><span class="skill-chip">Web applications</span></div>
                         <div class="status-line">For more background, open the <button class="text-link" type="button" data-open-view="resume" style="border:0;background:none;padding:0;cursor:pointer">resume</button>.</div>
                     </section>
-
-                    <section class="view" id="view-resume" aria-labelledby="resume-title">
-                        <h1 class="view-heading" id="resume-title">Resume</h1>
-                        <p class="view-description">View the resume here or open/download the PDF.</p>
-                        <div class="resume-layout">
-                            <iframe class="resume-frame" src="resume.pdf#view=FitH" title="Sachit Kohli resume PDF"></iframe>
-                            <aside class="sheet-card resume-info">
-                                <div><h3>Sachit Kohli</h3><p>Computer science student and backend developer.</p></div>
-                                <a class="action primary" href="resume.pdf" target="_blank" rel="noopener noreferrer">Open resume ↗</a>
-                                <a class="action" href="resume.pdf" download>Download PDF ↓</a>
-                            </aside>
-                        </div>
-                    </section>
-
-                    <section class="view" id="view-about" aria-labelledby="about-title">
-                        <h1 class="view-heading" id="about-title">About & contact</h1>
-                        <p class="view-description">Interested in a project, collaboration, or opportunity? Feel free to connect.</p>
-                        <article class="sheet-card about-card">
-                            <span class="small-label">A little about me</span>
-                            <p style="margin-top:12px">I’m Sachit Kohli, a computer science student and backend developer. I enjoy building web applications, exploring how their pieces work together, and growing through hands-on projects. My portfolio features a two-version Finance Tracker and the Uniform Resource Optimizer hackathon project.</p>
-                            <div class="contact-links">
-                                <a class="action primary" href="https://github.com/sachit-create" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                                <a class="action" href="https://www.linkedin.com/in/sachit-kohli" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-                                <button class="action" type="button" data-open-view="resume">View resume</button>
-                            </div>
-                        </article>
-                    </section>
+                    <section class="view" id="view-resume" aria-labelledby="resume-title"><h1 class="view-heading" id="resume-title">Resume</h1><p class="view-description">View the resume here or open/download the PDF.</p><div class="resume-layout"><iframe class="resume-frame" src="resume.pdf#view=FitH" title="Sachit Kohli resume PDF"></iframe><aside class="sheet-card resume-info"><div><h3>Sachit Kohli</h3><p>Computer science student and backend developer.</p></div><a class="action primary" href="resume.pdf" target="_blank" rel="noopener noreferrer">Open resume ↗</a><a class="action" href="resume.pdf" download>Download PDF ↓</a></aside></div></section>
+                    <section class="view" id="view-about" aria-labelledby="about-title"><h1 class="view-heading" id="about-title">About & contact</h1><p class="view-description">Interested in a project, collaboration, or opportunity? Feel free to connect.</p><article class="sheet-card about-card"><span class="small-label">A little about me</span><p style="margin-top:12px">I’m Sachit Kohli, a computer science student and backend developer. I enjoy building web applications, exploring how their pieces work together, and growing through hands-on projects. My portfolio features a two-version Finance Tracker and the Uniform Resource Optimizer hackathon project.</p><div class="contact-links"><a class="action primary" href="https://github.com/sachit-create" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a class="action" href="https://www.linkedin.com/in/sachit-kohli" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><button class="action" type="button" data-open-view="resume">View resume</button></div></article></section>
                 </div>
             </main>
         </div>
     </div>
-
     <script>
         (() => {
+            const root = document.documentElement;
+            const themeSelect = document.getElementById('themeSelect');
+            const systemPreference = window.matchMedia('(prefers-color-scheme: dark)');
             const menu = document.getElementById('sidebar');
             const toggle = document.getElementById('menuToggle');
             const scrim = document.getElementById('menuScrim');
@@ -394,33 +260,41 @@
             const views = [...document.querySelectorAll('.view')];
             const labels = { home: 'Overview', projects: 'Projects', experience: 'Experience', resume: 'Resume', about: 'About & contact' };
 
+            function applyTheme(preference, save = true) {
+                const scheme = preference === 'system' ? (systemPreference.matches ? 'dark' : 'light') : preference;
+                root.dataset.theme = preference;
+                root.dataset.colorScheme = scheme;
+                themeSelect.value = preference;
+                document.querySelector('meta[name="theme-color"]').content = scheme === 'dark' ? '#202124' : '#f8fafd';
+                if (save) {
+                    try { localStorage.setItem('sachit-portfolio-theme', preference); } catch (_) {}
+                }
+            }
+            applyTheme(root.dataset.theme || 'system', false);
+            themeSelect.addEventListener('change', () => applyTheme(themeSelect.value));
+            systemPreference.addEventListener('change', () => {
+                if (root.dataset.theme === 'system') applyTheme('system', false);
+            });
+
             function setMenu(open) {
                 menu.classList.toggle('open', open);
                 scrim.classList.toggle('visible', open);
                 toggle.setAttribute('aria-expanded', String(open));
                 toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
             }
-
             function showView(name) {
                 if (!labels[name]) return;
                 views.forEach(view => view.classList.toggle('active', view.id === `view-${name}`));
-                navItems.forEach(item => {
-                    if (item.dataset.view === name) item.setAttribute('aria-current', 'page');
-                    else item.removeAttribute('aria-current');
-                });
-                panelTitle.textContent = labels[name];
-                breadcrumbTitle.textContent = labels[name];
+                navItems.forEach(item => item.dataset.view === name ? item.setAttribute('aria-current', 'page') : item.removeAttribute('aria-current'));
+                panelTitle.textContent = breadcrumbTitle.textContent = labels[name];
                 history.replaceState(null, '', name === 'home' ? '#home' : `#${name}`);
                 setMenu(false);
             }
-
             toggle.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
             scrim.addEventListener('click', () => setMenu(false));
             navItems.forEach(item => item.addEventListener('click', () => showView(item.dataset.view)));
             document.querySelectorAll('[data-open-view]').forEach(button => button.addEventListener('click', () => showView(button.dataset.openView)));
-            document.addEventListener('keydown', event => {
-                if (event.key === 'Escape') setMenu(false);
-            });
+            document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
             const initialView = location.hash.slice(1);
             if (labels[initialView]) showView(initialView);
         })();
