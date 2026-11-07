@@ -3,420 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sachit Kohli — CSE Student and Backend Developer">
+    <meta name="theme-color" content="#0b1020">
+    <meta name="description" content="Sachit Kohli is a computer science student and backend developer building thoughtful web applications.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <title>Sachit Kohli | Portfolio</title>
+    <title>Sachit Kohli | Backend Developer</title>
 
     <style>
         :root {
-            --bg: #0a0a0a;
-            --panel: #151515;
-            --panel-2: #111111;
-            --text: #f5f5f5;
-            --muted: #a7a7a7;
-            --line: #2b2b2b;
-            --green: #28c840;
-            --yellow: #fbbc2e;
-            --red: #ff5f57;
+            color-scheme: dark;
+            --bg: #0b1020;
+            --surface: rgba(18, 26, 47, 0.88);
+            --surface-raised: #17213a;
+            --text: #f3f6ff;
+            --muted: #a7b2ca;
+            --line: rgba(174, 193, 230, 0.16);
+            --accent: #8b9cff;
+            --accent-bright: #b7c1ff;
+            --mint: #72e6c1;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             min-height: 100vh;
+            margin: 0;
+            padding: 48px 24px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 24px;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+            align-items: center;
             color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(ellipse at 18% 12%, rgba(92, 111, 223, 0.2), transparent 38%),
+                radial-gradient(ellipse at 90% 82%, rgba(66, 197, 164, 0.12), transparent 35%),
+                var(--bg);
         }
 
         main {
-            width: 100%;
-            max-width: 1100px;
+            width: min(100%, 1040px);
             text-align: center;
         }
 
-        .status {
-            display: inline-block;
-            margin-bottom: 24px;
-            padding: 7px 14px;
+        .intro { max-width: 720px; margin: 0 auto; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 22px;
+            padding: 8px 13px;
             border: 1px solid var(--line);
             border-radius: 999px;
-            color: #aaa;
-            font-size: 13px;
-            letter-spacing: 0.06em;
+            background: rgba(255, 255, 255, 0.035);
+            color: #d3dcf3;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
+        .eyebrow::before {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--mint);
+            box-shadow: 0 0 12px rgba(114, 230, 193, 0.75);
+            content: "";
+        }
+
         h1 {
-            font-size: clamp(42px, 7vw, 72px);
-            letter-spacing: -3px;
-            margin-bottom: 12px;
+            margin: 0;
+            font-size: clamp(44px, 8vw, 78px);
+            line-height: 1.04;
+            letter-spacing: -0.065em;
+        }
+
+        h1 span {
+            color: var(--accent-bright);
+            background: linear-gradient(100deg, #c0c9ff 10%, #81e3d0 95%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .role {
-            color: var(--muted);
-            font-size: 18px;
-            margin-bottom: 28px;
+            margin: 18px 0 0;
+            color: #d5def1;
+            font-size: clamp(17px, 3vw, 21px);
+            font-weight: 500;
         }
 
         .description {
-            max-width: 640px;
-            margin: 0 auto 32px;
+            max-width: 630px;
+            margin: 18px auto 0;
             color: var(--muted);
-            line-height: 1.7;
             font-size: 15px;
+            line-height: 1.8;
         }
 
         .buttons {
             display: flex;
             justify-content: center;
-            gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 38px;
+            gap: 12px;
+            margin: 28px 0 52px;
         }
 
-        a {
-            text-decoration: none;
-            transition: 0.2s ease;
-        }
+        a { color: inherit; text-decoration: none; }
 
         .btn {
+            min-height: 46px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 18px;
-            border-radius: 10px;
-            font-size: 14px;
+            padding: 0 18px;
             border: 1px solid var(--line);
-            min-width: 140px;
-        }
-
-        .primary {
-            background: #f5f5f5;
-            color: #111;
-        }
-
-        .secondary {
-            background: transparent;
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.045);
             color: var(--text);
-            border: 1px solid var(--line);
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
         }
 
-        .btn:hover {
+        .btn:hover, .mini-link:hover {
             transform: translateY(-2px);
-            opacity: 0.9;
+            border-color: rgba(183, 193, 255, 0.55);
+        }
+
+        .btn.primary {
+            border-color: transparent;
+            background: linear-gradient(110deg, #aab5ff, #84e2cf);
+            color: #101629;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            color: #dbe3f7;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .section-heading::after {
+            height: 1px;
+            flex: 1;
+            background: var(--line);
+            content: "";
         }
 
         .projects-wrap {
-            margin-top: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: stretch;
-            gap: 22px;
-            flex-wrap: wrap;
-        }
-
-        .project-card {
-            width: min(300px, 100%);
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
             text-align: left;
         }
 
-        .window-bar {
+        .project-card {
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--surface);
+            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22);
+            transition: transform 200ms ease, border-color 200ms ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(174, 193, 230, 0.32);
+        }
+
+        .project-art {
+            min-height: 132px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 40px;
-            padding: 0 12px;
-            border-bottom: 1px solid var(--line);
-            background: #1a1a1a;
+            align-items: flex-end;
+            padding: 18px 20px;
+            background:
+                radial-gradient(circle at 78% 25%, rgba(159, 174, 255, 0.34), transparent 26%),
+                linear-gradient(135deg, #26365a, #19223d 58%, #172d3a);
         }
 
-        .window-dots {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
+        .uro-card .project-art {
+            background:
+                linear-gradient(90deg, rgba(12, 19, 35, 0.25), rgba(12, 19, 35, 0.05)),
+                url('internalhackthonteam2.jpeg') center 28% / cover no-repeat,
+                linear-gradient(135deg, #294a58, #1a2841);
         }
 
-        .window-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .red { background: var(--red); }
-        .yellow { background: var(--yellow); }
-        .green { background: var(--green); }
-
-        .window-title {
-            color: #8b8b8b;
-            font-size: 11px;
+        .project-type {
+            display: inline-flex;
+            padding: 7px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            background: rgba(9, 15, 29, 0.58);
+            color: #edf1ff;
+            font-size: 10px;
+            font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            margin-left: 12px;
-            margin-right: auto;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            backdrop-filter: blur(8px);
         }
 
-        .window-controls {
-            color: #8b8b8b;
-            font-size: 12px;
-            flex-shrink: 0;
-        }
-
-        .project-inner {
-            position: relative;
-            padding: 16px 16px 18px;
-            min-height: 210px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            overflow: hidden;
-        }
-
-        .finance-card .project-inner {
-            background: linear-gradient(180deg, rgba(16,16,16,0.72), rgba(23,23,23,0.9));
-        }
-
-        .uro-card .project-inner {
-            background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.78)), url('internalhackthonteam2.jpeg');
-            background-size: cover;
-            background-position: 50% 12%;
-            background-repeat: no-repeat;
-        }
-
-        .project-label,
-        .project-name,
-        .project-desc,
-        .project-links {
-            position: relative;
-            z-index: 1;
-        }
-
-        .project-label {
-            display: block;
-            color: #f8f8f8;
-            font-size: 10px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-        }
+        .project-content { padding: 20px; }
 
         .project-name {
-            display: block;
+            margin: 0 0 9px;
             font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 1.15;
-            margin-bottom: 10px;
-            color: #fff;
-            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9);
+            letter-spacing: -0.035em;
         }
 
         .project-desc {
-            color: #f5f5f5;
+            min-height: 66px;
+            margin: 0 0 17px;
+            color: var(--muted);
             font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 18px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+            line-height: 1.7;
         }
 
-        .project-links {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .project-links { display: flex; flex-wrap: wrap; gap: 8px; }
 
         .mini-link {
-            padding: 8px 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 11px;
+            border: 1px solid var(--line);
             border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            font-size: 12px;
-            color: var(--text);
-            background: rgba(0,0,0,0.35);
-            backdrop-filter: blur(3px);
+            background: rgba(255, 255, 255, 0.035);
+            color: #dce4f7;
+            font-size: 11px;
+            font-weight: 600;
+            transition: transform 180ms ease, border-color 180ms ease;
         }
 
         .mini-link.primary {
-            background: #f5f5f5;
-            color: #111;
-            border-color: #f5f5f5;
+            border-color: rgba(139, 156, 255, 0.3);
+            background: rgba(139, 156, 255, 0.13);
+            color: #dce1ff;
         }
 
         footer {
-            margin-top: 42px;
-            color: #555;
+            margin-top: 35px;
+            color: #77839c;
             font-size: 12px;
         }
 
-        .ending {
-            margin-top: 12px;
-            color: #07f227;
-            font-size: 1.1rem;
-            text-align: center;
-            text-shadow: 0 0 5px #07f227,
-                         0 0 10px #07f227,
-                         0 0 20px #07f227,
-                         0 0 40px #07f227,
-                         0 0 80px #07f227;
+        :focus-visible {
+            outline: 2px solid var(--mint);
+            outline-offset: 4px;
         }
 
-        @media (max-width: 980px) {
-            body {
-                padding: 28px 16px 40px;
-            }
-
-            main {
-                max-width: 760px;
-            }
-
-            .projects-wrap {
-                gap: 18px;
-            }
+        @media (max-width: 680px) {
+            body { align-items: flex-start; padding: 42px 16px 30px; }
+            .buttons { margin-bottom: 38px; }
+            .projects-wrap { grid-template-columns: 1fr; }
+            .project-desc { min-height: 0; }
         }
 
-        @media (max-width: 640px) {
-            body {
-                align-items: flex-start;
-                padding: 28px 14px 36px;
-            }
+        @media (max-width: 420px) {
+            .buttons { flex-direction: column; }
+            .btn { width: 100%; }
+            .project-content { padding: 17px; }
+            .project-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
 
-            .status {
-                margin-bottom: 18px;
-                font-size: 11px;
-            }
-
-            .buttons {
-                flex-direction: column;
-                align-items: stretch;
-                width: 100%;
-                margin-bottom: 30px;
-            }
-
-            .btn {
-                width: 100%;
-                min-width: auto;
-            }
-
-            .projects-wrap {
-                flex-direction: column;
-                align-items: center;
-                gap: 16px;
-            }
-
-            .project-card {
-                width: min(100%, 360px);
-            }
-
-            .project-links {
-                flex-direction: column;
-            }
-
-            .mini-link {
-                text-align: center;
-            }
-
-            .window-bar {
-                padding: 0 10px;
-            }
-
-            .window-title {
-                font-size: 10px;
-                letter-spacing: 0.08em;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
-
 <body>
     <main>
-        <div class="status">Portfolio under reconstruction</div>
+        <section class="intro" aria-labelledby="page-title">
+            <div class="eyebrow">Portfolio · Ready to explore</div>
+            <h1 id="page-title">Hi, I’m <span>Sachit Kohli.</span></h1>
+            <p class="role">Computer Science Student <span aria-hidden="true">·</span> Backend Developer</p>
+            <p class="description">
+                I build practical web applications and enjoy turning ideas into useful, reliable products.
+                Explore a couple of projects I’ve worked on, or connect with me below.
+            </p>
 
-        <h1>Sachit Kohli</h1>
+            <div class="buttons" aria-label="Social links and resume">
+                <a class="btn primary" href="resume.pdf" download>Download resume</a>
+                <a class="btn" href="https://github.com/sachit-create" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+                <a class="btn" href="https://www.linkedin.com/in/sachit-kohli" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            </div>
+        </section>
 
-        <p class="role">CSE Student | Backend Developer</p>
-
-        <p class="description">
-            I am rebuilding my portfolio from scratch with a fresh design and development approach.
-            The new portfolio is currently under development, but I’m actively building real projects and learning by shipping them.
-        </p>
-
-        <div class="buttons">
-            <a class="btn primary" href="resume.pdf" download>Download Resume</a>
-            <a class="btn secondary" href="https://github.com/sachit-create" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a class="btn secondary" href="https://www.linkedin.com/in/sachit-kohli" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        </div>
-
-        <div class="projects-wrap">
-            <article class="project-card finance-card" aria-label="Finance Tracker project">
-                <div class="window-bar">
-                    <div class="window-dots">
-                        <span class="window-dot red"></span>
-                        <span class="window-dot yellow"></span>
-                        <span class="window-dot green"></span>
+        <section aria-labelledby="projects-title">
+            <h2 class="section-heading" id="projects-title">Selected projects</h2>
+            <div class="projects-wrap">
+                <article class="project-card finance-card">
+                    <div class="project-art">
+                        <span class="project-type">Personal project · Two versions</span>
                     </div>
-                    <div class="window-title">Finance Tracker</div>
-                    <div class="window-controls">— ×</div>
-                </div>
-                <div class="project-inner">
-                    <span class="project-label">Project Versions</span>
-                    <span class="project-name">Finance Tracker</span>
-                    <p class="project-desc">Two versions of the same budgeting app: v1 is a frontend dashboard deployed on GitHub Pages, and v2 is a Python-based web app built with Flask and SQLite.</p>
-                    <div class="project-links">
-                        <a class="mini-link primary" href="https://sachit-create.github.io/Finance-Tracker/" target="_blank" rel="noopener noreferrer">V1 Live</a>
-                        <a class="mini-link" href="https://github.com/sachit-create/Finance-Tracker" target="_blank" rel="noopener noreferrer">V1 Source</a>
-                        <a class="mini-link primary" href="https://financetracker-2-p268.onrender.com/login" target="_blank" rel="noopener noreferrer">V2 Live</a>
-                        <a class="mini-link" href="https://github.com/sachit-create/FinanceTracker_2" target="_blank" rel="noopener noreferrer">V2 Source</a>
+                    <div class="project-content">
+                        <h3 class="project-name">Finance Tracker</h3>
+                        <p class="project-desc">A budgeting app in two iterations: a frontend dashboard, plus a Flask and SQLite web application.</p>
+                        <div class="project-links">
+                            <a class="mini-link primary" href="https://sachit-create.github.io/Finance-Tracker/" target="_blank" rel="noopener noreferrer">V1 · Live ↗</a>
+                            <a class="mini-link" href="https://github.com/sachit-create/Finance-Tracker" target="_blank" rel="noopener noreferrer">V1 · Source</a>
+                            <a class="mini-link primary" href="https://financetracker-2-p268.onrender.com/login" target="_blank" rel="noopener noreferrer">V2 · Live ↗</a>
+                            <a class="mini-link" href="https://github.com/sachit-create/FinanceTracker_2" target="_blank" rel="noopener noreferrer">V2 · Source</a>
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
 
-            <article class="project-card uro-card" aria-label="URO project">
-                <div class="window-bar">
-                    <div class="window-dots">
-                        <span class="window-dot red"></span>
-                        <span class="window-dot yellow"></span>
-                        <span class="window-dot green"></span>
+                <article class="project-card uro-card">
+                    <div class="project-art">
+                        <span class="project-type">TechSpark college hackathon</span>
                     </div>
-                    <div class="window-title">URO</div>
-                    <div class="window-controls">— ×</div>
-                </div>
-                <div class="project-inner">
-                    <span class="project-label">College Hackathon Project</span>
-                    <span class="project-name">Uniform Resource Optimizer</span>
-                    <p class="project-desc">A resource optimization system built for the TechSpark college hackathon using AI-assisted planning and smart allocation.</p>
-                    <div class="project-links">
-                        <a class="mini-link primary" href="https://uniform-resource-optimizer-dashboar.vercel.app/" target="_blank" rel="noopener noreferrer">Live View</a>
-                        <a class="mini-link" href="https://github.com/sachit-create/Resource-Optimization-System-Neural" target="_blank" rel="noopener noreferrer">Source Code</a>
+                    <div class="project-content">
+                        <h3 class="project-name">Uniform Resource Optimizer</h3>
+                        <p class="project-desc">A resource optimization system for planning and smart allocation, developed for the TechSpark college hackathon.</p>
+                        <div class="project-links">
+                            <a class="mini-link primary" href="https://uniform-resource-optimizer-dashboar.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
+                            <a class="mini-link" href="https://github.com/sachit-create/Resource-Optimization-System-Neural" target="_blank" rel="noopener noreferrer">Source code</a>
+                        </div>
                     </div>
-                </div>
-            </article>
-        </div>
+                </article>
+            </div>
+        </section>
 
-        <footer>
-            Rebuilding since September 11, 2026<br>
-            <p class="ending">Ready to Deploy....</p>
-        </footer>
+        <footer>Designed and built by Sachit Kohli</footer>
     </main>
 </body>
 </html>
