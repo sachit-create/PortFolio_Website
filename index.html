@@ -57,13 +57,13 @@
         .brand-name { font-size: 17px; font-weight: 500; letter-spacing: -.3px; white-space: nowrap; }
         .brand-subtitle { margin-top: 2px; color: var(--muted); font-size: 11px; }
         .topbar-spacer { flex: 1; }
-        .availability { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--control); font-size: 12px; white-space: nowrap; }
+        .availability { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--control); font-size: 11px; white-space: nowrap; }
         .availability::before { width: 8px; height: 8px; border-radius: 50%; background: #34a853; content: ""; }
         .theme-control { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 12px; white-space: nowrap; }
         .theme-select { min-height: 36px; padding: 0 28px 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); cursor: pointer; }
         .avatar { width: 36px; height: 36px; display: grid; place-items: center; flex: 0 0 auto; border: 0; border-radius: 50%; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 700; }
         .workspace { position: relative; display: flex; flex: 1; min-height: 0; padding: 0 16px 16px; }
-        .sidebar { position: absolute; z-index: 4; inset: 0 auto 16px 16px; width: 256px; padding: 12px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); visibility: hidden; opacity: 0; transform: translateX(-12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
+        .sidebar { position: absolute; z-index: 4; inset: 0 auto 16px 16px; width: 256px; padding: 12px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); visibility: hidden; opacity: 0; transform: translateX(-12px); transition: opacity .18s ease, transform .18s ease, visibility .18s; }
         .sidebar.open { visibility: visible; opacity: 1; transform: translateX(0); }
         .menu-label { padding: 9px 13px 10px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
         .nav-list { display: grid; gap: 4px; }
@@ -133,7 +133,6 @@
         .contact-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
         .status-line { display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 15px; color: var(--muted); font-size: 11px; }
         .status-line span { color: var(--green); }
-        @media (min-width:900px) { .sidebar.open ~ .main-panel { margin-left:272px; width:calc(100% - 272px); } }
         @media (max-width:700px) {
             .topbar { height:58px; min-height:58px; padding:0 10px; gap:8px; }
             .brand-subtitle, .availability, .theme-label { display:none; }
@@ -235,9 +234,9 @@
                         </div>
                     </section>
                     <section class="view" id="view-experience" aria-labelledby="experience-title">
-                        <h1 class="view-heading" id="experience-title">Experience & learning</h1><p class="view-description">My current experience is centered on computer science studies and building projects. I’ve kept this section to verifiable work rather than inventing job history.</p>
-                        <div class="experience-grid"><article class="experience-card"><div class="experience-meta">Education</div><h3>Computer Science student</h3><p>Studying computer science while developing practical skills through independent web application projects.</p></article><article class="experience-card"><div class="experience-meta">Project work</div><h3>Finance Tracker</h3><p>Built two versions of a budgeting application, including a Python, Flask, and SQLite web app.</p></article><article class="experience-card"><div class="experience-meta">Hackathon</div><h3>TechSpark · Uniform Resource Optimizer</h3><p>Worked on a resource optimization system for planning and smart allocation as a college hackathon project.</p></article><article class="experience-card"><div class="experience-meta">Development approach</div><h3>Learn by building</h3><p>Practicing by taking projects from an idea to a working application and iterating on the implementation.</p></article></div>
-                        <h2 class="section-kicker">Tools and technologies reflected in my projects</h2><div class="skill-row" aria-label="Technologies"><span class="skill-chip">Python</span><span class="skill-chip">Flask</span><span class="skill-chip">SQLite</span><span class="skill-chip">Frontend development</span><span class="skill-chip">Web applications</span></div>
+                        <h1 class="view-heading" id="experience-title">Experience & learning</h1><p class="view-description">My current experience is centered on computer science studies and building practical projects.</p>
+                        <div class="experience-grid"><article class="experience-card"><div class="experience-meta">Education</div><h3>Computer Science student</h3><p>Studying computer science while developing practical skills through independent and collaborative projects.</p></article><article class="experience-card"><div class="experience-meta">Project work</div><h3>Web application development</h3><p>Built projects with frontend interfaces, Python, Flask, and SQLite, with a focus on useful and clear user experiences.</p></article></div>
+                        <h2 class="section-kicker">Tools and technologies reflected in my projects</h2><div class="skill-row" aria-label="Technologies"><span class="skill-chip">Python</span><span class="skill-chip">Flask</span><span class="skill-chip">SQLite</span><span class="skill-chip">HTML</span><span class="skill-chip">CSS</span><span class="skill-chip">JavaScript</span><span class="skill-chip">GitHub</span></div>
                         <div class="status-line">For more background, open the <button class="text-link" type="button" data-open-view="resume" style="border:0;background:none;padding:0;cursor:pointer">resume</button>.</div>
                     </section>
                     <section class="view" id="view-resume" aria-labelledby="resume-title"><h1 class="view-heading" id="resume-title">Resume</h1><p class="view-description">View the resume here or open/download the PDF.</p><div class="resume-layout"><iframe class="resume-frame" src="resume.pdf#view=FitH" title="Sachit Kohli resume PDF"></iframe><aside class="sheet-card resume-info"><div><h3>Sachit Kohli</h3><p>Computer science student and backend developer.</p></div><a class="action primary" href="resume.pdf" target="_blank" rel="noopener noreferrer">Open resume ↗</a><a class="action" href="resume.pdf" download>Download PDF ↓</a></aside></div></section>
