@@ -46,7 +46,42 @@
 </head>
 <body>
 <div class="app">
-  <header class="topbar"><button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar"><span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span></button><a class="brand" href="#home" aria-label="Sachit Kohli portfolio home"><span class="brand-mark" aria-hidden="true">SK</span><span><span class="brand-name">Sachit Kohli</span><span class="brand-subtitle">Personal portfolio</span></span></a><span class="topbar-space"></span><label class="theme-control"><span class="theme-label">Theme</span><select class="theme-select" id="themeSelect" aria-label="Choose color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></header>
+  <header class="topbar">
+    <button class="menu-toggle" id="menuToggle" type="button"
+      aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+      <span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+
+    <a class="brand" href="#home" aria-label="Sachit Kohli portfolio home">
+      <span class="brand-mark" aria-hidden="true">SK</span>
+      <span>
+        <span class="brand-name">Sachit Kohli</span>
+        <span class="brand-subtitle">Personal portfolio</span>
+      </span>
+    </a>
+
+    <nav class="sidebar" id="sidebar" aria-label="Portfolio sections">
+      <div class="menu-label">Workspace</div>
+      <div class="nav-list">
+        <button class="nav-item" type="button" data-view="home" aria-current="page">Overview</button>
+        <button class="nav-item" type="button" data-view="projects">Projects</button>
+        <button class="nav-item" type="button" data-view="experience">Experience</button>
+        <button class="nav-item" type="button" data-view="resume">Resume</button>
+        <button class="nav-item" type="button" data-view="about">About &amp; contact</button>
+      </div>
+    </nav>
+
+    <span class="topbar-space"></span>
+
+    <label class="theme-control">
+      <span class="theme-label">Theme</span>
+      <select class="theme-select" id="themeSelect" aria-label="Choose color theme">
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
+  </header>
   <div class="workspace"><div class="menu-scrim" id="menuScrim"></div><nav class="sidebar" id="sidebar" aria-label="Portfolio sections"><div class="menu-label">Workspace</div><div class="nav-list"><button class="nav-item" type="button" data-view="home" aria-current="page">Overview</button><button class="nav-item" type="button" data-view="projects">Projects</button><button class="nav-item" type="button" data-view="experience">Experience</button><button class="nav-item" type="button" data-view="resume">Resume</button><button class="nav-item" type="button" data-view="about">About &amp; contact</button></div></nav>
     <main class="main-panel"><div class="panel-top"><span id="panelTitle">Overview</span><span class="breadcrumb">Portfolio / <span id="breadcrumbTitle">Overview</span></span></div><div class="panel-content">
       <section class="view active" id="view-home" aria-labelledby="home-title"><h1 class="view-heading" id="home-title">Portfolio dashboard</h1><p class="view-description">A quick look at what I build, what I’m learning, and how to get in touch.</p><div class="overview-grid"><article class="card welcome-card"><span class="small-label">Computer science · Backend development</span><h2 class="welcome-title">Hi, I’m Sachit.</h2><p class="welcome-copy">I’m a computer science student who enjoys building practical web applications. I’m focused on learning by creating, improving, and shipping real projects.</p><div class="quick-actions"><button class="action primary" type="button" data-open-view="projects">Explore projects →</button><button class="action" type="button" data-open-view="resume">View resume</button><button class="action ai-button" id="openSummary" type="button" aria-haspopup="dialog" aria-controls="summaryDialog" data-tooltip="Get a quick portfolio summary">AI Summary</button></div></article><aside class="card profile-card" aria-label="Profile summary"><h2>Sachit Kohli</h2><p class="profile-role">CS Student · Backend Developer</p><div class="profile-row"><span>Focus</span><span>Web applications</span></div><div class="profile-row"><span>Featured work</span><span>3 projects</span></div><div class="profile-row"><span>Connect</span><span><a class="text-link" href="https://github.com/sachit-create" target="_blank" rel="noopener noreferrer">GitHub ↗</a></span></div></aside></div><p class="status-line"><span>●</span> Building and learning through projects</p></section>
